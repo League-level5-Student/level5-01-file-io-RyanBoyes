@@ -2,9 +2,14 @@ package _03_To_Do_List;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -112,7 +117,65 @@ public class ToDoList implements ActionListener{
 			System.out.println(tasks);
 		}
 		
+		if(e.getSource()==remove) {
+			String removeTask = JOptionPane.showInputDialog("Which task would you like to remove?");
+			for (int i = 0; i < tasks.size(); i++) {
+				if(removeTask.equalsIgnoreCase(tasks.get(i))) {
+					tasks.remove(i);
+					JOptionPane.showMessageDialog(null, "Task removed");
+				}
+				
+			}
+		}
 		
+		if(e.getSource()==save) {
+			
+			JOptionPane.showMessageDialog(null, "List saved to file.");
+			
+			try {
+				FileWriter fr = new FileWriter("src/_03_To_Do_List/List.txt");
+				String stringTasks = "";
+				for (int i = 0; i < tasks.size(); i++) {
+					stringTasks += tasks.get(i) + "\n";
+				}
+				fr.write(stringTasks);
+				fr.close();
+				
+			}
+			catch(IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		
+		if(e.getSource()==load) {
+			JOptionPane.showMessageDialog(null, "Loading file...");
+			JFileChooser jfc = new JFileChooser();
+			int returnVal = jfc.showOpenDialog(null);
+			if(returnVal==JFileChooser.APPROVE_OPTION) {
+				String fileName = jfc.getSelectedFile().getAbsolutePath();
+				System.out.println(fileName);
+			}
+			
+			String loadingFile = "";
+			try {
+			BufferedReader br = new BufferedReader(new FileReader("src/_03_To_Do_List/List.txt"));
+			String line = br.readLine();
+			while(line!=null) {
+			loadingFile += line + "\n";
+			line = br.readLine();
+		}
+			br.close();
+			
+			
+			FileWriter fw2 = new  FileWriter("src/_03_To_Do_List/List.txt");
+			fw2.write(loadingFile);
+			fw2.close();
+			
+			}
+			catch(Exception ex2) {
+				ex2.printStackTrace();
+			}
+		}
 		
 		
 	}
