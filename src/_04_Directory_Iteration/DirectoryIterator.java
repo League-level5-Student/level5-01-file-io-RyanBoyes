@@ -1,6 +1,9 @@
 package _04_Directory_Iteration;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
@@ -19,6 +22,17 @@ public class DirectoryIterator {
 			if(files != null) {
 				for(File f : files) {
 				  System.out.println(f.getAbsolutePath());
+				  if(f.getAbsolutePath().contains(".java")) {
+					  System.out.println("WORK");
+					  try {
+					  BufferedWriter Bw= new BufferedWriter(new FileWriter(f, true));
+					  Bw.write("//Copyright 2021 Ryan Boyes");
+					  Bw.close();
+					  }
+					  catch(IOException e) {
+						  e.printStackTrace();
+					  }
+				  }
 				}
 			}
 		}
@@ -31,3 +45,10 @@ public class DirectoryIterator {
 		 */
 	}
 }
+
+
+
+
+
+
+//Copyright 2021 Ryan Boyes
