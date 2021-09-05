@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.Hashtable;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,6 +23,7 @@ public class ColorSelectionPanel extends JPanel implements MouseListener, Change
 	private JSlider rSlider;
 	private JSlider gSlider;
 	private JSlider bSlider;
+	private JButton saveButton;
 	
 	private Color color;
 	
@@ -36,6 +38,7 @@ public class ColorSelectionPanel extends JPanel implements MouseListener, Change
 		rSlider = new JSlider(JSlider.VERTICAL);
 		gSlider = new JSlider(JSlider.VERTICAL);
 		bSlider = new JSlider(JSlider.VERTICAL);
+		saveButton = new JButton("Save");
 		
 		rSlider.setMinimum(0);
 		rSlider.setMaximum(MAX_COLOR - 1);
@@ -50,6 +53,7 @@ public class ColorSelectionPanel extends JPanel implements MouseListener, Change
 		rSlider.addChangeListener(this);
 		gSlider.addChangeListener(this);
 		bSlider.addChangeListener(this);
+		saveButton.addActionListener((e)->System.out.println("WORK"));
 		
 		addMouseListener(this);
 		
@@ -71,6 +75,7 @@ public class ColorSelectionPanel extends JPanel implements MouseListener, Change
 		add(gSlider);
 		add(new JLabel("blue"));
 		add(bSlider);
+		add(saveButton);
 	}
 
 	public Color getSelectedColor() {

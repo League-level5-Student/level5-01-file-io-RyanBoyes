@@ -12,6 +12,7 @@ public class GridInputPanel extends JPanel{
 	private JTextField windowHeightField;
 	private JTextField rowsField;
 	private JTextField colsField;
+	private JButton loadButton;
 	private JButton submitButton;
 			
 	PixelArtMaker pam;
@@ -23,6 +24,7 @@ public class GridInputPanel extends JPanel{
 		windowHeightField = new JTextField(5);
 		rowsField = new JTextField(5);
 		colsField = new JTextField(5);
+		loadButton = new JButton("Load Previous");
 		submitButton = new JButton("Submit");
 		
 		add(new JLabel("screen width:"));
@@ -34,7 +36,9 @@ public class GridInputPanel extends JPanel{
 		add(new JLabel("\ttotal columns:"));
 		add(colsField);
 		add(submitButton);
+		add(loadButton);
 		
+		loadButton.addActionListener((e)->System.out.println("WORK"));
 		submitButton.addActionListener((e)->submit());
 	}
 	

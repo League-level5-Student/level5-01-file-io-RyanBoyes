@@ -38,6 +38,7 @@ public class PixelArtMaker implements MouseListener{
 	public static void main(String[] args) {
 		new PixelArtMaker().start();
 	}
+	
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
