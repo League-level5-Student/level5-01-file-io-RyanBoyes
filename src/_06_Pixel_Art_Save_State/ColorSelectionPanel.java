@@ -4,6 +4,11 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Hashtable;
 
 import javax.swing.ImageIcon;
@@ -14,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import _05_Serialization.SaveData;
 
 public class ColorSelectionPanel extends JPanel implements MouseListener, ChangeListener{
 	private static final long serialVersionUID = 1L;
@@ -34,7 +41,7 @@ public class ColorSelectionPanel extends JPanel implements MouseListener, Change
 	private JLabel colorLabel;
 	private BufferedImage colorImage;
 	
-	public ColorSelectionPanel() {
+	public ColorSelectionPanel(GridPanel gp) {
 		rSlider = new JSlider(JSlider.VERTICAL);
 		gSlider = new JSlider(JSlider.VERTICAL);
 		bSlider = new JSlider(JSlider.VERTICAL);
@@ -53,7 +60,7 @@ public class ColorSelectionPanel extends JPanel implements MouseListener, Change
 		rSlider.addChangeListener(this);
 		gSlider.addChangeListener(this);
 		bSlider.addChangeListener(this);
-		saveButton.addActionListener((e)->System.out.println("WORK"));
+		saveButton.addActionListener((e)->save(gp));
 		
 		addMouseListener(this);
 		
@@ -130,4 +137,14 @@ public class ColorSelectionPanel extends JPanel implements MouseListener, Change
 		colorLabel.setIcon(new ImageIcon(colorImage));
 		add(colorLabel);
 	}
+	
+	private static void save(GridPanel data) {
+		try (FileOutputStream fos = new FileOutputStream(new File("SavedArt.dat")); ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+			oos.writeObject(data);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }

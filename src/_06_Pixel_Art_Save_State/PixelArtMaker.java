@@ -26,7 +26,18 @@ public class PixelArtMaker implements MouseListener{
 
 	public void submitGridData(int w, int h, int r, int c) {
 		gp = new GridPanel(w, h, r, c);
-		csp = new ColorSelectionPanel();
+		csp = new ColorSelectionPanel(gp);
+		window.remove(gip);
+		window.add(gp);
+		window.add(csp);
+		gp.repaint();
+		gp.addMouseListener(this);
+		window.pack();
+	}
+	
+	public void submitGridData(GridPanel gp) {
+		this.gp = gp;
+		csp = new ColorSelectionPanel(gp);
 		window.remove(gip);
 		window.add(gp);
 		window.add(csp);

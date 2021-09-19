@@ -1,10 +1,17 @@
 package _06_Pixel_Art_Save_State;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import _05_Serialization.SaveData;
 
 public class GridInputPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
@@ -38,7 +45,7 @@ public class GridInputPanel extends JPanel{
 		add(submitButton);
 		add(loadButton);
 		
-		loadButton.addActionListener((e)->System.out.println("WORK"));
+		loadButton.addActionListener((e)->load());
 		submitButton.addActionListener((e)->submit());
 	}
 	
@@ -72,5 +79,19 @@ public class GridInputPanel extends JPanel{
 		JOptionPane.showMessageDialog(null, "Be sure all fields are complete with positive numbers.", "ERROR", 0);
 	}
 	
+	
+	private void load() {
+		try (FileInputStream fis = new FileInputStream(new File("SavedArt.dat")); ObjectInputStream ois = new ObjectInputStream(fis)) {
+			 pam.submitGridData((GridPanel) ois.readObject());
+		} catch (IOException e) {
+			e.printStackTrace();
+		
+		} catch (ClassNotFoundException e) {
+			// This can occur if the object we read from the file is not
+			// an instance of any recognized class
+			e.printStackTrace();
+		
+		}
+	}
 	
 }
